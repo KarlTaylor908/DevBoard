@@ -1,5 +1,7 @@
 ﻿using DevBoard.Application.Auth;
+using DevBoard.Infrastructure.Auth.Jwt;
 using DevBoard.Infratructure.Auth;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -11,10 +13,13 @@ namespace DevBoard.Infrastructure
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddInfrastructure(this IServiceCollection services)
+        public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
+
             services.AddScoped<IAuthRepository, AuthRepository>();
-            // add other infrastructure services here
+            services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
+            services.AddScoped<JwtService>();
+
             return services;
         }
     }

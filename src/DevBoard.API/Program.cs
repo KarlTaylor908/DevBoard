@@ -1,4 +1,5 @@
 using DevBoard.Infrastructure;
+using DevBoard.Infrastructure.Auth.Jwt;
 using DevBoard.Infrastructure.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -17,7 +18,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
 
-builder.Services.AddInfrastructure();
+builder.Services.AddInfrastructure(builder.Configuration);
 
 builder.Services.Configure<LockoutOptions>(
     builder.Configuration.GetSection("Auth:Lockout"));
