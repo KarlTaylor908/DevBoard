@@ -1,9 +1,8 @@
-﻿using DevBoard.API.DTOs;
-using DevBoard.Domain.Entities;
+﻿using DevBoard.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
-namespace DevBoard.API.Infrastructure.Data
+namespace DevBoard.Infrastructure.Data
 {
     public class AppDbContext : DbContext
     {

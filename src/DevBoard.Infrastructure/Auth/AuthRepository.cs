@@ -1,18 +1,19 @@
-﻿using DevBoard.API.Infrastructure.Data;
-using DevBoard.Domain.Entities;
+﻿using DevBoard.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using DevBoard.Application.Auth;
+using DevBoard.Infrastructure.Data;
 
-namespace DevBoard.API.Services
+namespace DevBoard.Infratructure.Auth
 {
-    public class AuthService
+    public class AuthRepository : IAuthRepository
     {
         private readonly AppDbContext _db;
         private readonly PasswordHasher<UserEnt> _hasher = new();
         private readonly IOptions<LockoutOptions>  _lockoutOptions;
 
-        public AuthService(AppDbContext db, IOptions<LockoutOptions> lockoutOptions)
+        public AuthRepository(AppDbContext db, IOptions<LockoutOptions> lockoutOptions)
         {
             _db = db;
             _lockoutOptions = lockoutOptions;
@@ -46,7 +47,7 @@ namespace DevBoard.API.Services
             {
                 user.ResetFailedAttempts();
                 await _db.SaveChangesAsync();
-                return user;
+                return user ?? null;
             }
 
             user.RegisterFailedAttempt(_lockoutOptions.Value.MaxFailedAccessAttempts, _lockoutOptions.Value.DefaultLockoutTimeSpan);

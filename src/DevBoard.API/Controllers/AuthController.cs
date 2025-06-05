@@ -1,5 +1,5 @@
 ﻿using DevBoard.API.DTOs.Authentication;
-using DevBoard.API.Services;
+using DevBoard.Application.Auth;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevBoard.API.Controllers
@@ -8,11 +8,11 @@ namespace DevBoard.API.Controllers
     [Route("api/auth")]
     public class AuthController : Controller
     {
-        private readonly AuthService _authService;
+        private readonly IAuthRepository _authRepository;
 
-        public AuthController(AuthService authService)
+        public AuthController(IAuthRepository authRepository)
         {
-            _authService = authService;
+            _authRepository = authRepository;
         }
 
         [HttpPost("register")]
@@ -20,7 +20,7 @@ namespace DevBoard.API.Controllers
         {
             try
             {
-                var user = await _authService.RegisterAsync(request.Name, request.Email, request.Password);
+                var user = await _authRepository.RegisterAsync(request.Name, request.Email, request.Password);
                 return Json(new AuthResponse
                 {
                     Email = user.Email,
@@ -38,7 +38,7 @@ namespace DevBoard.API.Controllers
         {
             try
             {
-                var user = await _authService.LoginAsync(request.Email, request.Password);
+                var user = await _authRepository.LoginAsync(request.Email, request.Password);
                 if (user == null)
                     return Unauthorized("Invalid Credentials");
 

@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DevBoard.API.Infrastructure.Data.Configurations
+namespace DevBoard.Infrastructure.Data.Configurations
 {
     public class UserRoleConfiguration : IEntityTypeConfiguration<UserRoleEnt>
     {
