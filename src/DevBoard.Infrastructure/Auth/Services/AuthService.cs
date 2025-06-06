@@ -1,8 +1,9 @@
-﻿using DevBoard.Domain.Auth.Entities;
+﻿using DevBoard.Application.Auth;
+using DevBoard.Domain.Auth.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 
-namespace DevBoard.Application.Auth.Services
+namespace DevBoard.Infrastructure.Auth.Services
 {
     public class AuthService : IAuthService
     {
@@ -49,7 +50,7 @@ namespace DevBoard.Application.Auth.Services
             if (await _userRepository.UserEmailExistsAsync(email))
                 throw new Exception("User already exists");
 
-            var user = new UserEnt(name, email, DateTime.UtcNow);
+            var user = new UserEnt(name, email);
             user.SetPasswordHash(_hasher.HashPassword(user, password));
 
             await _userRepository.AddAsync(user);

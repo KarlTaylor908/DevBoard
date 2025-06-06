@@ -5,7 +5,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace DevBoard.Infrastructure.Auth
+namespace DevBoard.Infrastructure.Auth.Services
 {
     public class JwtService
     {

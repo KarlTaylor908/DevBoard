@@ -7,7 +7,7 @@ namespace DevBoard.Domain.Auth.Entities
         public string Name { get; private set; } = string.Empty;
         public string Email { get; private set; } = string.Empty;
         public string PasswordHash { get; private set; } = string.Empty;
-        public DateTime CreatedAt { get; private set; }
+        public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
 
         // Lockout fields
         public int FailedLoginAttempts { get; private set; } = 0;
@@ -15,11 +15,10 @@ namespace DevBoard.Domain.Auth.Entities
 
         public UserEnt() { }
 
-        public UserEnt(string name, string email, DateTime createdAt)
+        public UserEnt(string name, string email)
         {
             Name = name;
             Email = email;
-            CreatedAt = createdAt;
         }
 
         public bool IsLockedOut() =>

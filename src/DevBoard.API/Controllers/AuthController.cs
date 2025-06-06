@@ -1,6 +1,6 @@
 ﻿using DevBoard.API.DTOs.Authentication;
 using DevBoard.Application.Auth;
-using DevBoard.Infrastructure.Auth;
+using DevBoard.Infrastructure.Auth.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevBoard.API.Controllers
