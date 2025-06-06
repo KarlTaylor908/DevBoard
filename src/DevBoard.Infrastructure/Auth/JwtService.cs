@@ -1,15 +1,11 @@
-﻿using DevBoard.Domain.Entities;
+﻿using DevBoard.Domain.Auth.Entities;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace DevBoard.Infrastructure.Auth.Jwt
+namespace DevBoard.Infrastructure.Auth
 {
     public class JwtService
     {
@@ -38,7 +34,7 @@ namespace DevBoard.Infrastructure.Auth.Jwt
                 audience: _jwtSettings.Audience,
                 claims: claims,
                 expires: DateTime.UtcNow.AddMinutes(_jwtSettings.DurationInMinutes),
-                signingCredentials: creds );
+                signingCredentials: creds);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }

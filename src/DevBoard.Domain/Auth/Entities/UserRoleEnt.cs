@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DevBoard.Domain.Shared;
 
-namespace DevBoard.Domain.Entities
+namespace DevBoard.Domain.Auth.Entities
 {
     public class UserRoleEnt : BaseEnt
     {

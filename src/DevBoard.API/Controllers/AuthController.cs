@@ -1,6 +1,6 @@
 ﻿using DevBoard.API.DTOs.Authentication;
 using DevBoard.Application.Auth;
-using DevBoard.Infrastructure.Auth.Jwt;
+using DevBoard.Infrastructure.Auth;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevBoard.API.Controllers
@@ -9,12 +9,12 @@ namespace DevBoard.API.Controllers
     [Route("api/auth")]
     public class AuthController : Controller
     {
-        private readonly IAuthRepository _authRepository;
+        private readonly IAuthService _authService;
         private readonly JwtService _jwtService;
 
-        public AuthController(IAuthRepository authRepository, JwtService jwtService)
+        public AuthController(IAuthService authService, JwtService jwtService)
         {
-            _authRepository = authRepository;
+            _authService = authService;
             _jwtService = jwtService;
         }
 
@@ -23,7 +23,7 @@ namespace DevBoard.API.Controllers
         {
             try
             {
-                var user = await _authRepository.RegisterAsync(request.Name, request.Email, request.Password);
+                var user = await _authService.RegisterAsync(request.Name, request.Email, request.Password);
                 var token = _jwtService.GenerateToken(user);
 
                 return Json(new AuthResponse
@@ -43,7 +43,7 @@ namespace DevBoard.API.Controllers
         {
             try
             {
-                var user = await _authRepository.LoginAsync(request.Email, request.Password);
+                var user = await _authService.LoginAsync(request.Email, request.Password);
 
                 if (user != null)
                 {

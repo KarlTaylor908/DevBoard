@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DevBoard.Domain.Entities
+namespace DevBoard.Application.Tests.Auth
 {
-    public class BaseEnt
+    internal class LoginAsyncTests
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
+        // Test Valid Login
+        // Test Invalid Login
     }
 }

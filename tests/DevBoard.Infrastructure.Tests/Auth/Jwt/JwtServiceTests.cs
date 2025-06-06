@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DevBoard.Domain.Entities
+namespace DevBoard.Infrastructure.Tests.Auth.Jwt
 {
-    public class RoleEnt : BaseEnt
+    internal class JwtServiceTests
     {
-        public string Name { get; set; } = String.Empty;
     }
 }

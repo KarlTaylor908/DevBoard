@@ -1,6 +1,6 @@
-﻿using DevBoard.Domain.Entities;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
+using DevBoard.Domain.Auth.Entities;
 
 namespace DevBoard.Infrastructure.Data.Configurations
 {

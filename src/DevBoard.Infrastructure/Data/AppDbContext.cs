@@ -1,4 +1,4 @@
-﻿using DevBoard.Domain.Entities;
+﻿using DevBoard.Domain.Auth.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 

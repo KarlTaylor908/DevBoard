@@ -1,4 +1,4 @@
-﻿using DevBoard.Domain.Entities;
+﻿using DevBoard.Domain.Auth.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace DevBoard.Application.Auth
 {
-    public interface IAuthRepository
+    public interface IAuthService
     {
-        Task<UserEnt> RegisterAsync(string name, string email, string password);
         Task<UserEnt?> LoginAsync(string email, string password);
+        Task<UserEnt> RegisterAsync(string name, string email, string password);
     }
 }

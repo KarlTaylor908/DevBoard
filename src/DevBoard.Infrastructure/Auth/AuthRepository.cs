@@ -1,59 +1,28 @@
-﻿using DevBoard.Domain.Entities;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.EntityFrameworkCore;
 using DevBoard.Application.Auth;
 using DevBoard.Infrastructure.Data;
+using DevBoard.Domain.Auth.Entities;
+using DevBoard.Infrastructure.Shared;
 
 namespace DevBoard.Infratructure.Auth
 {
-    public class AuthRepository : IAuthRepository
+    public class AuthRepository : BaseRepository<UserEnt>, IUserRepository
     {
         private readonly AppDbContext _db;
-        private readonly PasswordHasher<UserEnt> _hasher = new();
-        private readonly IOptions<LockoutOptions>  _lockoutOptions;
 
-        public AuthRepository(AppDbContext db, IOptions<LockoutOptions> lockoutOptions)
+        public AuthRepository(AppDbContext db) : base(db)
         {
             _db = db;
-            _lockoutOptions = lockoutOptions;
         }
 
-        public async Task<UserEnt> RegisterAsync(string name, string email, string password)
+        public async Task<UserEnt?> GetUserByEmailAsync(string email)
         {
-            if (await _db.Users.AnyAsync(u => u.Email == email))
-                throw new Exception("User already exists"); // Todo - Standardise exceptions
-
-            var user = new UserEnt (name, email, DateTime.UtcNow);
-            user.SetPasswordHash(_hasher.HashPassword(user, password));
-
-            _db.Users.Add(user);
-            await _db.SaveChangesAsync();
-            return user;
+            return await _db.Users.FirstOrDefaultAsync(u => u.Email == email);
         }
 
-        public async Task<UserEnt?> LoginAsync(string email, string password)
+        public async Task<bool> UserEmailExistsAsync(string email)
         {
-            var user = await _db.Users.FirstOrDefaultAsync(u => u.Email == email);
-            if (user == null)
-                return null;
-
-            if (user.IsLockedOut())
-                throw new Exception($"Account locked until {user.LockoutUntil:HH:mm:ss}"); // Todo - Standardise exceptions
-
-            var result = _hasher.VerifyHashedPassword(user, user.PasswordHash, password);
-
-            if (result == PasswordVerificationResult.Success)
-            {
-                user.ResetFailedAttempts();
-                await _db.SaveChangesAsync();
-                return user ?? null;
-            }
-
-            user.RegisterFailedAttempt(_lockoutOptions.Value.MaxFailedAccessAttempts, _lockoutOptions.Value.DefaultLockoutTimeSpan);
-            await _db.SaveChangesAsync();
-
-            return null;
+            return await _db.Users.AnyAsync(u => u.Email == email);
         }
     }
 }

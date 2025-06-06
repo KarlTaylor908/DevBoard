@@ -1,5 +1,5 @@
 using DevBoard.Infrastructure;
-using DevBoard.Infrastructure.Auth.Jwt;
+using DevBoard.Infrastructure.Auth;
 using DevBoard.Infrastructure.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

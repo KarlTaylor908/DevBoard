@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DevBoard.Domain.Shared;
 
-namespace DevBoard.Domain.Entities
+namespace DevBoard.Domain.Auth.Entities
 {
     public class UserEnt : BaseEnt
     {
-        public string Name { get; private set; } = String.Empty;
-        public string Email { get; private set; } = String.Empty;
-        public string PasswordHash { get; private set; } = String.Empty;
+        public string Name { get; private set; } = string.Empty;
+        public string Email { get; private set; } = string.Empty;
+        public string PasswordHash { get; private set; } = string.Empty;
         public DateTime CreatedAt { get; private set; }
 
         // Lockout fields
@@ -19,7 +15,7 @@ namespace DevBoard.Domain.Entities
 
         public UserEnt() { }
 
-        public UserEnt (string name, string email, DateTime createdAt)
+        public UserEnt(string name, string email, DateTime createdAt)
         {
             Name = name;
             Email = email;
