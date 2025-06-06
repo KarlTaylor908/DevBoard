@@ -1,12 +1,19 @@
-﻿using DevBoard.Domain.Auth.Entities;
+﻿using DevBoard.Domain.Auth;
+using DevBoard.Domain.Auth.Entities;
 
 namespace DevBoard.Domain.Tests.Auth.Entities
 {
     public class UserEntTests 
     {
-        UserEnt exampleUser = new UserEnt("TestUser", "testuser@example.com");
-        int maxAttempts = 5;
-        TimeSpan lockoutTimeSpan = TimeSpan.FromMinutes(5);
+        private EmailAddress _emailAddress = EmailAddress.Create("testuser@example.com");
+        private UserEnt _exampleUser;
+        private int _maxAttempts = 5;
+        private TimeSpan _lockoutTimeSpan = TimeSpan.FromMinutes(5);
+
+        public UserEntTests()
+        {
+            _exampleUser = new UserEnt("TestUser", _emailAddress);
+        }
 
         [Fact]
         public void Constructor_Default_SetInitialValuesCorrectly()
@@ -23,7 +30,7 @@ namespace DevBoard.Domain.Tests.Auth.Entities
         {
             // Arrange
             var name = "TestUser";
-            var email = "testuser@example.com";
+            var email = EmailAddress.Create("testuser@example.com");
 
             // Act
             var user = new UserEnt
@@ -42,10 +49,10 @@ namespace DevBoard.Domain.Tests.Auth.Entities
         public void IsLockedout_LockedoutUntilHasNoValue_ReturnFalse()
         {
             // Arrange
-            exampleUser.ResetFailedAttempts();
+            _exampleUser.ResetFailedAttempts();
 
             // Act
-            var isLockedOut = exampleUser.IsLockedOut();
+            var isLockedOut = _exampleUser.IsLockedOut();
 
             // Assert
             Assert.False(isLockedOut);
@@ -55,18 +62,18 @@ namespace DevBoard.Domain.Tests.Auth.Entities
         public async Task IsLockedOut_LockoutUntilIsLessThanUtcNow_ReturnFalse()
         {
             // Arrange
-            exampleUser.ResetFailedAttempts();
+            _exampleUser.ResetFailedAttempts();
 
-            lockoutTimeSpan = TimeSpan.FromMicroseconds(1);
+            _lockoutTimeSpan = TimeSpan.FromMicroseconds(1);
 
             for (var i = 0; i < 5; i++)
             {
-                exampleUser.RegisterFailedAttempt(maxAttempts, lockoutTimeSpan);
+                _exampleUser.RegisterFailedAttempt(_maxAttempts, _lockoutTimeSpan);
             }
 
             // Act
             await Task.Delay(5000);
-            var isLockedOut = exampleUser.IsLockedOut();
+            var isLockedOut = _exampleUser.IsLockedOut();
 
             // Assert
             Assert.False(isLockedOut);
@@ -77,15 +84,15 @@ namespace DevBoard.Domain.Tests.Auth.Entities
         public void IsLockedOut_LockoutUntilIsMoreThanUtcNow_ReturnTrue()
         {
             // Arrange
-            exampleUser.ResetFailedAttempts();
+            _exampleUser.ResetFailedAttempts();
 
             for (var i = 0; i < 5; i++)
             {
-                exampleUser.RegisterFailedAttempt(maxAttempts, lockoutTimeSpan);
+                _exampleUser.RegisterFailedAttempt(_maxAttempts, _lockoutTimeSpan);
             }
 
             // Act
-            var isLockedOut = exampleUser.IsLockedOut();
+            var isLockedOut = _exampleUser.IsLockedOut();
 
             // Assert
             Assert.True(isLockedOut);
@@ -95,48 +102,48 @@ namespace DevBoard.Domain.Tests.Auth.Entities
         public void RegisterFailedAttempt_MaxAttemptIsMoreThanFailedLoginAttempts_LockoutUntilIsNull()
         {
             // Arrange
-            exampleUser.ResetFailedAttempts();
+            _exampleUser.ResetFailedAttempts();
 
             // Act
-            exampleUser.RegisterFailedAttempt(maxAttempts, lockoutTimeSpan);
+            _exampleUser.RegisterFailedAttempt(_maxAttempts, _lockoutTimeSpan);
 
             // Assert
-            Assert.Equal(1, exampleUser.FailedLoginAttempts);
-            Assert.Null(exampleUser.LockoutUntil);
+            Assert.Equal(1, _exampleUser.FailedLoginAttempts);
+            Assert.Null(_exampleUser.LockoutUntil);
         }
 
         [Fact]
         public void RegisterFailedAttempt_MaxAttemptIsEqualToFailedLoginAttempts_LockoutUntilIsNotNull()
         {
             // Arrange
-            exampleUser.ResetFailedAttempts();
+            _exampleUser.ResetFailedAttempts();
 
             // Act
             for (var i = 0; i < 5; i++)
             {
-                exampleUser.RegisterFailedAttempt(maxAttempts, lockoutTimeSpan);
+                _exampleUser.RegisterFailedAttempt(_maxAttempts, _lockoutTimeSpan);
             }
             
             // Assert
-            Assert.Equal(5, exampleUser.FailedLoginAttempts);
-            Assert.NotNull(exampleUser.LockoutUntil);
+            Assert.Equal(5, _exampleUser.FailedLoginAttempts);
+            Assert.NotNull(_exampleUser.LockoutUntil);
         }
 
         [Fact]
         public void RegisterFailedAttempt_MaxAttemptIsMoreThanFailedLoginAttempts_LockoutUntilIsNotNull()
         {
             // Arrange
-            exampleUser.ResetFailedAttempts();
+            _exampleUser.ResetFailedAttempts();
 
             // Act
             for (var i = 0; i < 6; i++)
             {
-                exampleUser.RegisterFailedAttempt(maxAttempts, lockoutTimeSpan);
+                _exampleUser.RegisterFailedAttempt(_maxAttempts, _lockoutTimeSpan);
             }
 
             // Assert
-            Assert.Equal(6, exampleUser.FailedLoginAttempts);
-            Assert.NotNull(exampleUser.LockoutUntil);
+            Assert.Equal(6, _exampleUser.FailedLoginAttempts);
+            Assert.NotNull(_exampleUser.LockoutUntil);
         }
 
         [Fact]
@@ -145,15 +152,15 @@ namespace DevBoard.Domain.Tests.Auth.Entities
             // Arrange
             for (var i = 0; i < 6; i++)
             {
-                exampleUser.RegisterFailedAttempt(maxAttempts, lockoutTimeSpan);
+                _exampleUser.RegisterFailedAttempt(_maxAttempts, _lockoutTimeSpan);
             }
 
             // Act
-            exampleUser.ResetFailedAttempts();
+            _exampleUser.ResetFailedAttempts();
 
             // Arrange
-            Assert.Equal(0, exampleUser.FailedLoginAttempts);
-            Assert.Null(exampleUser.LockoutUntil);
+            Assert.Equal(0, _exampleUser.FailedLoginAttempts);
+            Assert.Null(_exampleUser.LockoutUntil);
         }
 
         [Fact]
@@ -164,10 +171,10 @@ namespace DevBoard.Domain.Tests.Auth.Entities
             var password = "password";
 
             // Act
-            exampleUser.SetPasswordHash(password);
+            _exampleUser.SetPasswordHash(password);
 
             // Assert
-            Assert.Equal(password, exampleUser.PasswordHash);
+            Assert.Equal(password, _exampleUser.PasswordHash);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using DevBoard.Application.Auth;
+using DevBoard.Domain.Auth;
 using DevBoard.Domain.Auth.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
@@ -17,7 +18,7 @@ namespace DevBoard.Infrastructure.Auth.Services
             _lockoutOptions = lockoutOptions;
         }
 
-        public async Task<UserEnt?> LoginAsync(string email, string password)
+        public async Task<UserEnt?> LoginAsync(EmailAddress email, string password)
         {
             var user = await _userRepository.GetUserByEmailAsync(email);
             if (user == null)
@@ -45,7 +46,7 @@ namespace DevBoard.Infrastructure.Auth.Services
             return null;
         }
 
-        public async Task<UserEnt> RegisterAsync(string name, string email, string password)
+        public async Task<UserEnt> RegisterAsync(string name, EmailAddress email, string password)
         {
             if (await _userRepository.UserEmailExistsAsync(email))
                 throw new Exception("User already exists");

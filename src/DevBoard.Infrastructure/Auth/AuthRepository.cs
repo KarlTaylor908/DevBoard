@@ -3,6 +3,7 @@ using DevBoard.Application.Auth;
 using DevBoard.Infrastructure.Data;
 using DevBoard.Domain.Auth.Entities;
 using DevBoard.Infrastructure.Shared;
+using DevBoard.Domain.Auth;
 
 namespace DevBoard.Infratructure.Auth
 {
@@ -15,12 +16,12 @@ namespace DevBoard.Infratructure.Auth
             _db = db;
         }
 
-        public async Task<UserEnt?> GetUserByEmailAsync(string email)
+        public async Task<UserEnt?> GetUserByEmailAsync(EmailAddress email)
         {
             return await _db.Users.FirstOrDefaultAsync(u => u.Email == email);
         }
 
-        public async Task<bool> UserEmailExistsAsync(string email)
+        public async Task<bool> UserEmailExistsAsync(EmailAddress email)
         {
             return await _db.Users.AnyAsync(u => u.Email == email);
         }

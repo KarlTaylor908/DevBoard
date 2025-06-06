@@ -1,4 +1,5 @@
-﻿using DevBoard.Domain.Auth.Entities;
+﻿using DevBoard.Domain.Auth;
+using DevBoard.Domain.Auth.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace DevBoard.Application.Auth.UseCases
             _authService = authService;
         }
 
-        public async Task<UserEnt?> ExecuteAsync(string name, string email, string password)
+        public async Task<UserEnt?> ExecuteAsync(string name, EmailAddress email, string password)
         {
             return await _authService.RegisterAsync(name, email, password);
         }

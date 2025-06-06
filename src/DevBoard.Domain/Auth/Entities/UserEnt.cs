@@ -5,7 +5,7 @@ namespace DevBoard.Domain.Auth.Entities
     public class UserEnt : BaseEnt
     {
         public string Name { get; private set; } = string.Empty;
-        public string Email { get; private set; } = string.Empty;
+        public EmailAddress? Email { get; private set; }
         public string PasswordHash { get; private set; } = string.Empty;
         public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
 
@@ -15,7 +15,7 @@ namespace DevBoard.Domain.Auth.Entities
 
         public UserEnt() { }
 
-        public UserEnt(string name, string email)
+        public UserEnt(string name, EmailAddress email)
         {
             Name = name;
             Email = email;

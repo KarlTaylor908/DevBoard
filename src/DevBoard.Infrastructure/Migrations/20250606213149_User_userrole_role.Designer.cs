@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DevBoard.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250605190103_User_userrole_role")]
+    [Migration("20250606213149_User_userrole_role")]
     partial class User_userrole_role
     {
         /// <inheritdoc />
@@ -25,7 +25,7 @@ namespace DevBoard.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("DevBoard.Domain.Entities.RoleEnt", b =>
+            modelBuilder.Entity("DevBoard.Domain.Auth.Entities.RoleEnt", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -40,7 +40,7 @@ namespace DevBoard.Infrastructure.Migrations
                     b.ToTable("Role", (string)null);
                 });
 
-            modelBuilder.Entity("DevBoard.Domain.Entities.UserEnt", b =>
+            modelBuilder.Entity("DevBoard.Domain.Auth.Entities.UserEnt", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -72,7 +72,7 @@ namespace DevBoard.Infrastructure.Migrations
                     b.ToTable("User", (string)null);
                 });
 
-            modelBuilder.Entity("DevBoard.Domain.Entities.UserRoleEnt", b =>
+            modelBuilder.Entity("DevBoard.Domain.Auth.Entities.UserRoleEnt", b =>
                 {
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
@@ -90,15 +90,15 @@ namespace DevBoard.Infrastructure.Migrations
                     b.ToTable("UserRole", (string)null);
                 });
 
-            modelBuilder.Entity("DevBoard.Domain.Entities.UserRoleEnt", b =>
+            modelBuilder.Entity("DevBoard.Domain.Auth.Entities.UserRoleEnt", b =>
                 {
-                    b.HasOne("DevBoard.Domain.Entities.RoleEnt", "Role")
+                    b.HasOne("DevBoard.Domain.Auth.Entities.RoleEnt", "Role")
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DevBoard.Domain.Entities.UserEnt", "User")
+                    b.HasOne("DevBoard.Domain.Auth.Entities.UserEnt", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

@@ -1,4 +1,6 @@
-﻿namespace DevBoard.API.DTOs.Authentication
+﻿using DevBoard.Domain.Auth;
+
+namespace DevBoard.API.DTOs.Authentication
 {
     public class RegisterRequest
     {

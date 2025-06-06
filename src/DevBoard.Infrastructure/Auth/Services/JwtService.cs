@@ -18,9 +18,13 @@ namespace DevBoard.Infrastructure.Auth.Services
 
         public string GenerateToken(UserEnt user)
         {
+
+            if (user.Email is null)
+                throw new ArgumentNullException(nameof(user.Email));
+
             var claims = new[]
             {
-                new Claim(JwtRegisteredClaimNames.Sub, user.Email),
+                new Claim(JwtRegisteredClaimNames.Sub, user.Email.Value),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim("uid", user.Id.ToString()),
                 new Claim("name", user.Name)

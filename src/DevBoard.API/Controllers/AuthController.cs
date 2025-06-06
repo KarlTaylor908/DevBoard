@@ -1,5 +1,6 @@
 ﻿using DevBoard.API.DTOs.Authentication;
 using DevBoard.Application.Auth;
+using DevBoard.Domain.Auth;
 using DevBoard.Infrastructure.Auth.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,12 +24,21 @@ namespace DevBoard.API.Controllers
         {
             try
             {
-                var user = await _authService.RegisterAsync(request.Name, request.Email, request.Password);
+                if (!EmailAddress.TryCreate(request.Email, out var emailAddress))
+                    return BadRequest("Invalid email format.");
+
+                if (emailAddress is null)
+                    return BadRequest("Email is empty");
+
+                var user = await _authService.RegisterAsync(request.Name, emailAddress, request.Password);
                 var token = _jwtService.GenerateToken(user);
+
+                if (user.Email is null)
+                    return BadRequest("Email is empty");
 
                 return Json(new AuthResponse
                 {
-                    Email = user.Email,
+                    Email = user.Email.Value,
                     Token = token
                 });
             }
@@ -43,7 +53,13 @@ namespace DevBoard.API.Controllers
         {
             try
             {
-                var user = await _authService.LoginAsync(request.Email, request.Password);
+                if (!EmailAddress.TryCreate(request.Email, out var emailAddress))
+                    return BadRequest("Invalid email format.");
+
+                if (emailAddress is null)
+                    return BadRequest("Email is empty");
+
+                var user = await _authService.LoginAsync(emailAddress, request.Password);
 
                 if (user != null)
                 {
@@ -52,9 +68,12 @@ namespace DevBoard.API.Controllers
                     if (user == null)
                         return Unauthorized("Invalid Credentials");
 
+                    if (user.Email is null)
+                        return BadRequest("Email is empty");
+
                     return Json(new AuthResponse
                     {
-                        Email = user.Email,
+                        Email = user.Email.Value,
                         Token = token
                     });
                 }
