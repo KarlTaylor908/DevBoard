@@ -1,6 +1,6 @@
 ﻿using DevBoard.Application.Auth;
-using DevBoard.Domain.Auth;
 using DevBoard.Domain.Auth.Entities;
+using DevBoard.Domain.Auth.ValueObjects;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 
@@ -18,7 +18,7 @@ namespace DevBoard.Infrastructure.Auth.Services
             _lockoutOptions = lockoutOptions;
         }
 
-        public async Task<UserEnt?> LoginAsync(EmailAddress email, string password)
+        public async Task<UserEnt?> LoginAsync(EmailAddress email, Password password)
         {
             var user = await _userRepository.GetUserByEmailAsync(email);
             if (user == null)
@@ -27,7 +27,7 @@ namespace DevBoard.Infrastructure.Auth.Services
             if (user.IsLockedOut())
                 throw new Exception($"Account locked until {user.LockoutUntil:HH:mm:ss}");
 
-            var result = _hasher.VerifyHashedPassword(user, user.PasswordHash, password);
+            var result = _hasher.VerifyHashedPassword(user, user.PasswordHash, password.Value);
 
             if (result == PasswordVerificationResult.Success)
             {
@@ -46,13 +46,13 @@ namespace DevBoard.Infrastructure.Auth.Services
             return null;
         }
 
-        public async Task<UserEnt> RegisterAsync(string name, EmailAddress email, string password)
+        public async Task<UserEnt> RegisterAsync(string name, EmailAddress email, Password password)
         {
             if (await _userRepository.UserEmailExistsAsync(email))
                 throw new Exception("User already exists");
 
             var user = new UserEnt(name, email);
-            user.SetPasswordHash(_hasher.HashPassword(user, password));
+            user.SetPasswordHash(_hasher.HashPassword(user, password.Value));
 
             await _userRepository.AddAsync(user);
             await _userRepository.SaveChangesAsync();

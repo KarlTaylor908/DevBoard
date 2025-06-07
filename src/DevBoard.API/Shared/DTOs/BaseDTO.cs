@@ -1,4 +1,4 @@
-﻿namespace DevBoard.API.DTOs
+﻿namespace DevBoard.API.Shared.DTOs
 {
     public class BaseDTO
     {

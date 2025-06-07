@@ -1,4 +1,5 @@
-﻿using DevBoard.Domain.Shared;
+﻿using DevBoard.Domain.Auth.ValueObjects;
+using DevBoard.Domain.Shared;
 
 namespace DevBoard.Domain.Auth.Entities
 {

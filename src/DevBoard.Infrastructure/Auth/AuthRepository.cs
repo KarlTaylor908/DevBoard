@@ -3,7 +3,7 @@ using DevBoard.Application.Auth;
 using DevBoard.Infrastructure.Data;
 using DevBoard.Domain.Auth.Entities;
 using DevBoard.Infrastructure.Shared;
-using DevBoard.Domain.Auth;
+using DevBoard.Domain.Auth.ValueObjects;
 
 namespace DevBoard.Infratructure.Auth
 {

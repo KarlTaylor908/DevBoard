@@ -1,5 +1,5 @@
-﻿using DevBoard.Domain.Auth;
-using DevBoard.Domain.Auth.Entities;
+﻿using DevBoard.Domain.Auth.Entities;
+using DevBoard.Domain.Auth.ValueObjects;
 
 namespace DevBoard.Domain.Tests.Auth.Entities
 {

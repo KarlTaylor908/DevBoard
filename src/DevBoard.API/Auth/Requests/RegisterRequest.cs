@@ -1,6 +1,6 @@
 ﻿using DevBoard.Domain.Auth;
 
-namespace DevBoard.API.DTOs.Authentication
+namespace DevBoard.API.Auth.Requests
 {
     public class RegisterRequest
     {

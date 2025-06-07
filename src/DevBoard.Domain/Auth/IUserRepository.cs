@@ -1,5 +1,5 @@
-﻿using DevBoard.Domain.Auth;
-using DevBoard.Domain.Auth.Entities;
+﻿using DevBoard.Domain.Auth.Entities;
+using DevBoard.Domain.Auth.ValueObjects;
 using DevBoard.Domain.Shared;
 
 namespace DevBoard.Application.Auth

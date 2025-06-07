@@ -1,4 +1,4 @@
-﻿namespace DevBoard.API.DTOs.Authentication
+﻿namespace DevBoard.API.Auth.Responses
 {
     public class AuthResponse
     {

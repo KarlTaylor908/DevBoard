@@ -1,7 +1,7 @@
 ﻿using DevBoard.Application.Auth;
 using DevBoard.Application.Auth.UseCases;
-using DevBoard.Domain.Auth;
 using DevBoard.Domain.Auth.Entities;
+using DevBoard.Domain.Auth.ValueObjects;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -28,19 +28,20 @@ namespace DevBoard.Application.Tests.Auth
             // Arrange
             var name = "testuser";
 
-            var emailCreated = EmailAddress.TryCreate("test@example.com", out var emailAddress);
-            Assert.True(emailCreated);
+            var emailAddress = EmailAddress.Create("test@example.com");
             Assert.NotNull(emailAddress);
 
-            var password = "password";
-            var expectedUser = new UserEnt(name, emailAddress!);
+            var password = Password.Create("Password123!");
+            Assert.NotNull(password);
+
+            var expectedUser = new UserEnt(name, emailAddress);
 
             _authServiceMock
-                .Setup(service => service.LoginAsync(emailAddress!, password))
+                .Setup(service => service.LoginAsync(emailAddress, password))
                 .ReturnsAsync(expectedUser);
 
             // Act
-            var result = await _loginAsync.ExecuteAsync(emailAddress!, password);
+            var result = await _loginAsync.ExecuteAsync(emailAddress, password);
 
             // Assert
             Assert.NotNull(result);
@@ -53,18 +54,18 @@ namespace DevBoard.Application.Tests.Auth
         {
             // Arrange
 
-            var emailCreated = EmailAddress.TryCreate("test@example.com", out var emailAddress);
-            Assert.True(emailCreated);
+            var emailAddress = EmailAddress.Create("test@example.com");
             Assert.NotNull(emailAddress);
 
-            var password = "password";
+            var password = Password.Create("Password123!");
+            Assert.NotNull(password);
 
             _authServiceMock
-                .Setup(service => service.LoginAsync(emailAddress!, password))
+                .Setup(service => service.LoginAsync(emailAddress, password))
                 .ReturnsAsync((UserEnt?)null);
 
             // Act
-            var result = await _loginAsync.ExecuteAsync(emailAddress!, password);
+            var result = await _loginAsync.ExecuteAsync(emailAddress, password);
 
             // Assert
             Assert.Null(result);
