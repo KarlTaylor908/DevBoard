@@ -46,7 +46,7 @@ namespace DevBoard.Infrastructure.Auth.Services
             return null;
         }
 
-        public async Task<UserEnt> RegisterAsync(string name, EmailAddress email, Password password)
+        public async Task<UserEnt?> RegisterAsync(string name, EmailAddress email, Password password)
         {
             if (await _userRepository.UserEmailExistsAsync(email))
                 throw new Exception("User already exists");

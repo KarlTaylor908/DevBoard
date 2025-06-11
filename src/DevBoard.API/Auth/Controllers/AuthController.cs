@@ -1,6 +1,7 @@
 ﻿using DevBoard.API.Auth.Requests;
 using DevBoard.API.Auth.Responses;
 using DevBoard.Application.Auth;
+using DevBoard.Application.Auth.Interfaces;
 using DevBoard.Domain.Auth.ValueObjects;
 using DevBoard.Infrastructure.Auth.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -12,9 +13,9 @@ namespace DevBoard.API.Auth.Controllers
     public class AuthController : Controller
     {
         private readonly IAuthService _authService;
-        private readonly JwtService _jwtService;
+        private readonly IJwtService _jwtService;
 
-        public AuthController(IAuthService authService, JwtService jwtService)
+        public AuthController(IAuthService authService, IJwtService jwtService)
         {
             _authService = authService;
             _jwtService = jwtService;
@@ -29,12 +30,13 @@ namespace DevBoard.API.Auth.Controllers
                 var password = Password.Create(request.Password);
 
                 var user = await _authService.RegisterAsync(request.Name, emailAddress, password);
-                var token = _jwtService.GenerateToken(user);
 
                 if (user == null || user.Email == null)
                     return BadRequest("Invalid Credentials");
                 else
                 {
+                    var token = _jwtService.GenerateToken(user);
+
                     return Json(new AuthResponse
                     {
                         Email = user.Email.Value,

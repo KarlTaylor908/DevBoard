@@ -1,4 +1,5 @@
-﻿using DevBoard.Domain.Auth.Entities;
+﻿using DevBoard.Application.Auth.Interfaces;
+using DevBoard.Domain.Auth.Entities;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -7,7 +8,7 @@ using System.Text;
 
 namespace DevBoard.Infrastructure.Auth.Services
 {
-    public class JwtService
+    public class JwtService : IJwtService
     {
         private readonly JwtSettings _jwtSettings;
 

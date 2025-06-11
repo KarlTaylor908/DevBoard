@@ -6,8 +6,8 @@ namespace DevBoard.Domain.Auth.ValueObjects
     public sealed class EmailAddress : ValueObject
     {
         private static readonly Regex EmailRegex = new Regex(
-            @"^[^@\s]+@[^@\s]+\.[^@\s]+$",
-            RegexOptions.Compiled | RegexOptions.CultureInvariant);
+            @"^[^@\s]+@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$",
+            RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
 
         public string Value { get; }
 

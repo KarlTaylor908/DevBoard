@@ -1,7 +1,8 @@
 ﻿using DevBoard.Application.Auth;
+using DevBoard.Application.Auth.Interfaces;
 using DevBoard.Infrastructure.Auth;
 using DevBoard.Infrastructure.Auth.Services;
-using DevBoard.Infratructure.Auth;
+using DevBoard.infrastructure.Auth;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -14,7 +15,7 @@ namespace DevBoard.Infrastructure
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IUserRepository, AuthRepository>();
             services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
-            services.AddScoped<JwtService>();
+            services.AddScoped<IJwtService, JwtService>();
 
             return services;
         }

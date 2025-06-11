@@ -16,7 +16,7 @@ namespace DevBoard.Domain.Auth.Entities
 
         public UserEnt() { }
 
-        public UserEnt(string name, EmailAddress email)
+        public UserEnt(string name, EmailAddress? email)
         {
             Name = name;
             Email = email;

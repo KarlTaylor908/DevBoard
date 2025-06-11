@@ -5,7 +5,7 @@ using DevBoard.Domain.Auth.Entities;
 using DevBoard.Infrastructure.Shared;
 using DevBoard.Domain.Auth.ValueObjects;
 
-namespace DevBoard.Infratructure.Auth
+namespace DevBoard.infrastructure.Auth
 {
     public class AuthRepository : BaseRepository<UserEnt>, IUserRepository
     {

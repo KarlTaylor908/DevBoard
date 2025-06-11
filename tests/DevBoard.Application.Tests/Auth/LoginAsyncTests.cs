@@ -47,6 +47,8 @@ namespace DevBoard.Application.Tests.Auth
             Assert.NotNull(result);
             Assert.Equal(expectedUser.Name, result.Name);
             Assert.Equal(expectedUser.Email, result.Email);
+
+            _authServiceMock.Verify(x => x.LoginAsync(emailAddress, password), Times.Once);
         }
 
         [Fact]
@@ -69,6 +71,8 @@ namespace DevBoard.Application.Tests.Auth
 
             // Assert
             Assert.Null(result);
+            _authServiceMock.Verify(x => x.LoginAsync(emailAddress, password), Times.Once);
+
         }
     }
 }

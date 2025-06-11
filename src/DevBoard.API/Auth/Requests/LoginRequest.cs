@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Diagnostics;
-
-namespace DevBoard.API.Auth.Requests
+﻿namespace DevBoard.API.Auth.Requests
 {
     public class LoginRequest
     {
