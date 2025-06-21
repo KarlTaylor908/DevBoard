@@ -29,6 +29,7 @@ OR (if not applicable)
 - [ ] Code follows the project’s style guidelines (Clean Architecture & Repository/Service/Controller pattern & CQRS)
 - [ ] Lint and tests pass (`npm run lint && npm test`, etc.)
 - [ ] I have performed a self-review of my code
+- [ ] I have written tests for new code
 - [ ] Documentation has been updated as needed
 - [ ] I’ve linked the related issue or ticket (if applicable)
 
