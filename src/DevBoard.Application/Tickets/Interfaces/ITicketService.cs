@@ -9,6 +9,6 @@ namespace DevBoard.Application.Tickets.Interfaces
 {
     public interface ITicketService
     {
-        Task<TicketEnt?> CreateTicket(string name);
+        Task<TicketEnt?> CreateTicketAsync(string name);
     }
 }
