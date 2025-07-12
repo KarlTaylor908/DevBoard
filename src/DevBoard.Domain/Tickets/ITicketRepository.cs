@@ -1,4 +1,5 @@
-﻿using DevBoard.Domain.Tickets.Entities;
+﻿using DevBoard.Domain.Shared;
+using DevBoard.Domain.Tickets.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace DevBoard.Domain.Tickets
 {
-    public interface ITicketRepository
+    public interface ITicketRepository : IBaseRepository<TicketEnt>
     {
-        Task<TicketEnt?> CreateTicketAsync(string name);
+
     }
 }
