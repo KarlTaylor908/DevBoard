@@ -12,5 +12,6 @@ namespace DevBoard.Domain.Shared
         Task<bool> ExistsAsync(Guid id);
         Task AddAsync(T ent);
         Task SaveChangesAsync();
+        Task<T?> GetById(Guid Id);
     }
 }

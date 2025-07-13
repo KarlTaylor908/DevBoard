@@ -21,7 +21,7 @@ namespace DevBoard.API.Tickets.Controllers
         {
 			try
 			{
-				var ticket = await _ticketService.CreateTicketAsync(request.Name);
+				var ticket = await _ticketService.CreateTicketAsync(request.Name, request.AssignedId);
 
                 if (ticket == null)
                 {

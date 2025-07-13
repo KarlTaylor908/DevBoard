@@ -29,5 +29,10 @@ namespace DevBoard.Infrastructure.Shared
         {
             return await _dbSet.AnyAsync(u => u.Id == id);
         }
+
+        public async Task<T?> GetById(Guid id)
+        {
+            return await _dbSet.FindAsync(id);
+        }
     }
 }
