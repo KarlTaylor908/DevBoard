@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using DevBoard.Application.Auth;
 using DevBoard.Infrastructure.Data;
-using DevBoard.Domain.Auth.Entities;
+using DevBoard.Domain.User.Entities;
 using DevBoard.Infrastructure.Shared;
-using DevBoard.Domain.Auth.ValueObjects;
+using DevBoard.Domain.User.ValueObjects;
 
 namespace DevBoard.infrastructure.Auth
 {

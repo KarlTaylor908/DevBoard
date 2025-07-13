@@ -1,6 +1,6 @@
 ﻿using DevBoard.Application.Auth;
-using DevBoard.Domain.Auth.Entities;
-using DevBoard.Domain.Auth.ValueObjects;
+using DevBoard.Domain.User.Entities;
+using DevBoard.Domain.User.ValueObjects;
 using DevBoard.Infrastructure.Auth.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;

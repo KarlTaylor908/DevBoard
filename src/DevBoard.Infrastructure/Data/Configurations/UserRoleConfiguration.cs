@@ -1,4 +1,4 @@
-﻿using DevBoard.Domain.Auth.Entities;
+﻿using DevBoard.Domain.User.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

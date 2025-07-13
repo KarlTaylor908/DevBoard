@@ -1,5 +1,5 @@
-﻿using DevBoard.Domain.Auth.Entities;
-using DevBoard.Domain.Auth.ValueObjects;
+﻿using DevBoard.Domain.User.Entities;
+using DevBoard.Domain.User.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

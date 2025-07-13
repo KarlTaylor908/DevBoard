@@ -2,23 +2,28 @@
 using DevBoard.API.Auth.Responses;
 using DevBoard.Application.Auth;
 using DevBoard.Application.Auth.Interfaces;
-using DevBoard.Domain.Auth.ValueObjects;
-using DevBoard.Infrastructure.Auth.Services;
+using DevBoard.Domain.User.ValueObjects;
+using DevBoard.Infrastructure.Auth;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace DevBoard.API.Auth.Controllers
 {
+    [AllowAnonymous]
     [ApiController]
     [Route("api/auth")]
     public class AuthController : Controller
     {
         private readonly IAuthService _authService;
         private readonly IJwtService _jwtService;
+        private readonly JwtSettings _jwtSettings;
 
-        public AuthController(IAuthService authService, IJwtService jwtService)
+        public AuthController(IAuthService authService, IJwtService jwtService, IOptions<JwtSettings> jwtOptions)
         {
             _authService = authService;
             _jwtService = jwtService;
+            _jwtSettings = jwtOptions.Value;
         }
 
         [HttpPost("register")]
@@ -67,6 +72,15 @@ namespace DevBoard.API.Auth.Controllers
                         return Unauthorized("Login Failed");
 
                     var token = _jwtService.GenerateToken(user);
+
+                    // Set token as HttpOnly cookie
+                    HttpContext.Response.Cookies.Append("jwt_token", token, new CookieOptions
+                    {
+                        HttpOnly = true,
+                        Secure = true, // important in prod
+                        SameSite = SameSiteMode.Strict, // adjust for your app
+                        Expires = DateTimeOffset.UtcNow.AddMinutes(_jwtSettings.DurationInMinutes)
+                    });
 
                     return Json(new AuthResponse
                     {
