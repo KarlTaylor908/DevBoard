@@ -19,7 +19,7 @@ namespace DevBoard.Infrastructure
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<IAuthService, AuthService>();
-            services.AddScoped<IUserRepository, AuthRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
             services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
             services.AddScoped<IJwtService, JwtService>();
 

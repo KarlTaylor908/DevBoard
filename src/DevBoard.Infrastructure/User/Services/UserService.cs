@@ -15,7 +15,7 @@ namespace DevBoard.Infrastructure.User.Services
 
         public async Task<List<UserEnt>> GetUsers()
         {
-            return await _userRepository.Get();
+            return await _userRepository.GetAsync();
         }
     }
 }

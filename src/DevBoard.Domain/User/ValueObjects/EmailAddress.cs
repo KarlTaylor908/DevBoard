@@ -45,5 +45,15 @@ namespace DevBoard.Domain.User.ValueObjects
         {
             yield return Value.ToLowerInvariant();
         }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is EmailAddress other && string.Equals(Value, other.Value, StringComparison.OrdinalIgnoreCase);
+        }
+
+        public override int GetHashCode()
+        {
+            return StringComparer.OrdinalIgnoreCase.GetHashCode(Value);
+        }
     }
 }

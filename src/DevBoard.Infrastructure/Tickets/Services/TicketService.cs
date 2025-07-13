@@ -25,7 +25,7 @@ namespace DevBoard.Infrastructure.Tickets.Services
 
             if (assignedId is not null)
             {
-                assigned = _userRepository.GetById(assignedId.Value).Result;
+                assigned = _userRepository.GetByIdAsync(assignedId.Value).Result;
 
                 if (assigned is null)
                     throw new InvalidDataException("Invalid Assigned Id");

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DevBoard.Infrastructure.Tests.Auth
 {
-    public class AuthRepositoryTests
+    public class UserRepositoryTests
     {
         private AppDbContext CreateInMemoryDbContext()
         {
@@ -22,7 +22,7 @@ namespace DevBoard.Infrastructure.Tests.Auth
         {
             // Arrange
             using var dbContext = CreateInMemoryDbContext();
-            var repo = new AuthRepository(dbContext);
+            var repo = new UserRepository(dbContext);
 
             var email = EmailAddress.Create("test@example.com");
             var user = new UserEnt("Test User", email);
@@ -45,7 +45,7 @@ namespace DevBoard.Infrastructure.Tests.Auth
         {
             // Arrange
             using var dbContext = CreateInMemoryDbContext();
-            var repo = new AuthRepository(dbContext);
+            var repo = new UserRepository(dbContext);
 
             var email = EmailAddress.Create("nonexistent@example.com");
 
@@ -61,7 +61,7 @@ namespace DevBoard.Infrastructure.Tests.Auth
         {
             // Arrange
             using var dbContext = CreateInMemoryDbContext();
-            var repo = new AuthRepository(dbContext);
+            var repo = new UserRepository(dbContext);
 
             var email = EmailAddress.Create("exists@example.com");
             var user = new UserEnt("Existing User", email);
@@ -81,7 +81,7 @@ namespace DevBoard.Infrastructure.Tests.Auth
         {
             // Arrange
             using var dbContext = CreateInMemoryDbContext();
-            var repo = new AuthRepository(dbContext);
+            var repo = new UserRepository(dbContext);
 
             var email = EmailAddress.Create("missing@example.com");
 

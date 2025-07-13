@@ -7,11 +7,11 @@ using DevBoard.Domain.User.ValueObjects;
 
 namespace DevBoard.infrastructure.Auth
 {
-    public class AuthRepository : BaseRepository<UserEnt>, IUserRepository
+    public class UserRepository : BaseRepository<UserEnt>, IUserRepository
     {
         private readonly AppDbContext _db;
 
-        public AuthRepository(AppDbContext db) : base(db)
+        public UserRepository(AppDbContext db) : base(db)
         {
             _db = db;
         }

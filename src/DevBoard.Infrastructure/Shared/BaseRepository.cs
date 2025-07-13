@@ -31,12 +31,12 @@ namespace DevBoard.Infrastructure.Shared
             return await _dbSet.AnyAsync(u => u.Id == id);
         }
 
-        public virtual async Task<List<T>> Get()
+        public virtual async Task<List<T>> GetAsync()
         {
             return await _dbSet.ToListAsync();
         }
 
-        public async Task<T?> GetById(Guid id)
+        public async Task<T?> GetByIdAsync(Guid id)
         {
             return await _dbSet.FindAsync(id);
         }

@@ -17,6 +17,7 @@ namespace DevBoard.API.User.Controllers
             _userService = userService;
         }
 
+        [Route("get")]
         [HttpGet]
         public async Task<IActionResult> GetUsers()
         {

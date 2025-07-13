@@ -33,6 +33,12 @@ namespace DevBoard.API.Tests.Auth.Controllers
             });
 
             _authController = new AuthController(_authServiceMock.Object, _jwtServiceMock.Object, jwtOptions);
+
+            var context = new DefaultHttpContext();
+            _authController.ControllerContext = new ControllerContext
+            {
+                HttpContext = context
+            };
         }
 
         [Fact]
