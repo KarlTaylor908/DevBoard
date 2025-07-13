@@ -1,8 +1,8 @@
 ﻿using DevBoard.Application.Auth;
 using DevBoard.Application.Tickets.Interfaces;
-using DevBoard.Domain.Auth.Entities;
 using DevBoard.Domain.Tickets;
 using DevBoard.Domain.Tickets.Entities;
+using DevBoard.Domain.User.Entities;
 
 namespace DevBoard.Infrastructure.Tickets.Services
 {

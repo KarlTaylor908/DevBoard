@@ -1,11 +1,5 @@
-﻿using DevBoard.Domain.Auth.Entities;
-using DevBoard.Domain.Shared;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DevBoard.Domain.Shared;
+using DevBoard.Domain.User.Entities;
 
 namespace DevBoard.Domain.Tickets.Entities
 {

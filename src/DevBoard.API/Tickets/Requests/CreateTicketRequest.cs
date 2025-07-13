@@ -1,4 +1,4 @@
-﻿using DevBoard.Domain.Auth.Entities;
+﻿
 
 namespace DevBoard.API.Tickets.Requests
 {

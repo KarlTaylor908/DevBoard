@@ -1,11 +1,13 @@
 ﻿using DevBoard.API.Tickets.Requests;
 using DevBoard.API.Tickets.Responses;
 using DevBoard.Application.Tickets.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevBoard.API.Tickets.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("api/ticket")]
     public class TicketController : Controller
     {
