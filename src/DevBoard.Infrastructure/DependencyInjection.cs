@@ -9,6 +9,10 @@ using DevBoard.Application.Tickets.Interfaces;
 using DevBoard.Infrastructure.Tickets.Services;
 using DevBoard.Domain.Tickets;
 using DevBoard.Infrastructure.Tickets;
+using DevBoard.Domain.Boards;
+using DevBoard.Application.Boards.Interfaces;
+using DevBoard.Infrastructure.Boards;
+using DevBoard.Infrastructure.Boards.Services;
 
 namespace DevBoard.Infrastructure
 {
@@ -23,6 +27,9 @@ namespace DevBoard.Infrastructure
 
             services.AddScoped<ITicketService, TicketService>();
             services.AddScoped<ITicketRepository, TicketRepository>();
+
+            services.AddScoped<IBoardService, BoardService>();
+            services.AddScoped<IBoardRepository, BoardRepository>();
 
             return services;
         }
