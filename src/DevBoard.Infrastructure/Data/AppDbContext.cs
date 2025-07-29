@@ -1,5 +1,6 @@
-﻿using DevBoard.Domain.Auth.Entities;
+
 using DevBoard.Domain.Boards.Entities;
+using DevBoard.Domain.User.Entities;
 using DevBoard.Domain.Tickets.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;

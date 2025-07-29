@@ -1,4 +1,5 @@
-﻿using DevBoard.Domain.Tickets.Entities;
+﻿
+using DevBoard.Domain.Tickets.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace DevBoard.Application.Tickets.Interfaces
 {
     public interface ITicketService
     {
-        Task<TicketEnt?> CreateTicketAsync(string name);
+        Task<TicketEnt?> CreateTicketAsync(string name, Guid? assignedId);
     }
 }

@@ -1,4 +1,4 @@
-﻿using DevBoard.Domain.Auth.ValueObjects;
+﻿using DevBoard.Domain.User.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;

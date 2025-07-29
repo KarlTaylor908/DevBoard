@@ -1,10 +1,5 @@
-﻿using DevBoard.Domain.Auth.Entities;
-using DevBoard.Domain.Auth.ValueObjects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DevBoard.Domain.User.Entities;
+using DevBoard.Domain.User.ValueObjects;
 
 namespace DevBoard.Application.Auth.UseCases
 {

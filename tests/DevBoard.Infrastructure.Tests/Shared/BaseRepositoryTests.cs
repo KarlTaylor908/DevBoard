@@ -1,5 +1,5 @@
-﻿using DevBoard.Domain.Auth.Entities;
-using DevBoard.Domain.Auth.ValueObjects;
+﻿using DevBoard.Domain.User.Entities;
+using DevBoard.Domain.User.ValueObjects;
 using DevBoard.Infrastructure.Data;
 using DevBoard.Infrastructure.Shared;
 using Microsoft.EntityFrameworkCore;
@@ -72,6 +72,41 @@ namespace DevBoard.Infrastructure.Tests.Shared
 
             // Assert
             Assert.False(exists);
+        }
+
+        [Fact]
+        public async Task Get_ShouldReturnUsers_WhenTheyExist()
+        {
+            // Arrange
+            using var dbContext = CreateInMemoryDbContext();
+            dbContext.Users.AddRange(
+                new UserEnt ("test1", EmailAddress.Create("test1@example.com")),
+                new UserEnt ("test2", EmailAddress.Create("test2@example.com"))
+            );
+            await dbContext.SaveChangesAsync();
+
+            var repo = new BaseRepository<UserEnt>(dbContext);
+
+            // Act
+            var result = await repo.GetAsync();
+
+            // Assert
+            Assert.Equal(2, result.Count);
+            Assert.Contains(result, u => u.Email is not null && u.Email.Value == "test1@example.com");
+        }
+
+        [Fact]
+        public async Task Get_ShouldReturnEmptyList_WhenNoUsersExist()
+        {
+            // Arrange
+            using var dbContext = CreateInMemoryDbContext();
+            var repo = new BaseRepository<UserEnt>(dbContext);
+
+            // Act
+            var result = await repo.GetAsync();
+
+            // Assert
+            Assert.Empty(result);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using DevBoard.Domain.Auth;
+﻿using DevBoard.Domain.User;
 
 namespace DevBoard.API.Auth.Requests
 {

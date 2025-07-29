@@ -1,11 +1,13 @@
 ﻿using DevBoard.API.Tickets.Requests;
 using DevBoard.API.Tickets.Responses;
 using DevBoard.Application.Tickets.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevBoard.API.Tickets.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("api/ticket")]
     public class TicketController : Controller
     {
@@ -21,7 +23,7 @@ namespace DevBoard.API.Tickets.Controllers
         {
 			try
 			{
-				var ticket = await _ticketService.CreateTicketAsync(request.Name);
+				var ticket = await _ticketService.CreateTicketAsync(request.Name, request.AssignedId);
 
                 if (ticket == null)
                 {

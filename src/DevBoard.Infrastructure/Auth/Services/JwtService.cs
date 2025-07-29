@@ -1,8 +1,9 @@
 ﻿using DevBoard.Application.Auth.Interfaces;
-using DevBoard.Domain.Auth.Entities;
+using DevBoard.Domain.User.Entities;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net.Http;
 using System.Security.Claims;
 using System.Text;
 
