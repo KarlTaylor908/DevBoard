@@ -1,11 +1,13 @@
 ﻿using DevBoard.API.Boards.Responses;
 using DevBoard.API.Tickets.Requests;
 using DevBoard.Application.Boards.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevBoard.API.Boards.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("api/board")]
     public class BoardController : Controller
     { 

@@ -12,7 +12,7 @@ namespace DevBoard.Domain.Boards.Entities
     {
         public BoardEnt(string name)
         {
-            Name = name.ToLower();
+            Name = name;
 
         }
         public string Name { get; set; }
